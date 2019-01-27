@@ -38,6 +38,7 @@ void reset_pin(uint8_t pin);
 #define MUX_D 3
 #define MUX_E 4
 #define MUX_F 5
+#define MUX_H 7
 #define PINMUX(pin, mux) ((((uint32_t) pin) << 16) | (mux))
 
 #define NO_PIN PORT_BITS

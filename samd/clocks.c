@@ -56,20 +56,26 @@ uint8_t find_free_gclk(uint16_t divisor) {
     return 0xff;
 }
 
-static uint8_t last_static_clock = 0;
+static uint8_t static_clocks = 0;
 
 void init_dynamic_clocks(void) {
     // Find the last statically initialized clock and save it. Everything after will be reset with
     // the VM via reset_gclks.
     for (uint8_t i = 0; i < GCLK_GEN_NUM; i++) {
         if (gclk_enabled(i)) {
-            last_static_clock = i;
+            static_clocks |= (1 << i);
         }
     }
 }
 
 void reset_gclks(void) {
-    for (uint8_t i = last_static_clock + 1; i < GCLK_GEN_NUM; i++) {
-        disable_gclk(i);
+    for (uint8_t i = 1; i < GCLK_GEN_NUM; i++) {
+        reset_gclk(i);
+    }
+}
+
+void reset_gclk(uint8_t clk) {
+    if ((static_clocks & (1 << clk)) == 0) {
+        disable_gclk(clk);
     }
 }

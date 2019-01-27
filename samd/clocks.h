@@ -47,6 +47,7 @@ uint8_t find_free_gclk(uint16_t divisor);
 bool gclk_enabled(uint8_t gclk);
 void disable_gclk(uint8_t gclk);
 void reset_gclks(void);
+void reset_gclk(uint8_t clk);
 
 void connect_gclk_to_peripheral(uint8_t gclk, uint8_t peripheral);
 void disconnect_gclk_from_peripheral(uint8_t gclk, uint8_t peripheral);
